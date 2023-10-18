@@ -1,3 +1,8 @@
+// import logo from './logo.svg';
+// import './App.css';
+// import React, { useState } from 'react';
+// import Item from './item';
+
 import { useMemo, useState } from "react";
 import "./App.css";
 
@@ -19,6 +24,15 @@ const initialTodos = [
 function App() {
   const [todoInput, setTodoInput] = useState("");
   const [todos, setTodos] = useState(initialTodos);
+
+  function deleteTodo(index) {
+    setTodos((prevState) => {
+      const updatedTodos = [...prevState];
+      updatedTodos.splice(index, 1);
+      return updatedTodos;
+    });
+  }
+  
 
   function addTodo() {
     setTodos((prevState) => [
@@ -56,6 +70,7 @@ function App() {
           {todos.map((todo, index) => (
             <div className="todo">
               <div>
+              <div>
                 <input
                   type="checkbox"
                   checked={todo.completed}
@@ -65,6 +80,9 @@ function App() {
               </div>
               <p>{`${todo.completed}`}</p>
             </div>
+            
+            <button onClick={() => deleteTodo(index)}>Delete</button>
+          </div>
           ))}
         </div>
       </div>
